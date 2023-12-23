@@ -2,7 +2,7 @@ pipeline {
     agent none
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockercred')
-        SNYK_CREDENTIALS = credentials('SnykToken')
+        // SNYK_CREDENTIALS = credentials('SnykToken')
     }
     stages {
         stage('Build') {
