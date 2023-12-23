@@ -45,7 +45,7 @@ pipeline {
                 }
             }
             steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PASSWD | docker login -u $DOCKERHUB_CREDENTIALS_USERNAME --password-stdin'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 sh 'docker push fakhriabdillah/nodejsgoof:0.${BUILD_NUMBER}'
             }
         }
