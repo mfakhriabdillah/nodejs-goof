@@ -2,15 +2,14 @@ pipeline {
     agent none
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockercred')
-
+        SNYK_CREDENTIALS = credentials('SnykToken')
     }
-
     stages {
         stage('Build') {
-            agent{
+            agent {
                 docker {
                     image 'node:lts-buster-slim'
-                }
+                }   
             }
             steps{
                 sh 'npm install'
