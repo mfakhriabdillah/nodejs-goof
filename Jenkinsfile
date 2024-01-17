@@ -18,7 +18,8 @@ pipeline {
                 }
                 sh 'cat trufflehog-scan-result.txt'
                 archiveArtifacts artifacts: 'trufflehog-scan-result.txt'
-            }        
+            }
+        }        
         stage('Build') {
             agent {
                 docker {
