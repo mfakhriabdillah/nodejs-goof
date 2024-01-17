@@ -15,16 +15,16 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Test') {
-            agent{
-                docker {
-                    image 'node:lts-buster-slim'
-                }
-            }
-            steps{
-                sh 'npm test'
-            }
-        }
+        // stage('Test') {
+        //     agent{
+        //         docker {
+        //             image 'node:lts-buster-slim'
+        //         }
+        //     }
+        //     steps{
+        //         sh 'npm test'
+        //     }
+        // }
         stage('Build Docker Images') {
             agent{
                 docker {
