@@ -1,0 +1,7 @@
+package-lock.json
+node_modules
+dependency-check*
+retire-scan-report.txt
+snyk-scan-report.txt
+trufflehog-scan-result.txt
+.git

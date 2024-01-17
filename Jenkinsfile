@@ -5,6 +5,20 @@ pipeline {
         // SNYK_CREDENTIALS = credentials('SnykToken')
     }
     stages {
+        stage('Secret Scanning using Trufflehog') {
+            agent {
+                docker {
+                    image 'trufflesecurity/trufflehog:latest'
+                    args '-u root --entrypoint='
+                }
+            }
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh 'trufflehog filesystem . --exclude-paths trufflehog-excluded-paths.txt --fail > trufflehog-scan-result.txt'
+                }
+                sh 'cat trufflehog-scan-result.txt'
+                archiveArtifacts artifacts: 'trufflehog-scan-result.txt'
+            }        
         stage('Build') {
             agent {
                 docker {
@@ -15,16 +29,17 @@ pipeline {
                 sh 'npm install'
             }
         }
-        // stage('Test') {
-        //     agent{
-        //         docker {
-        //             image 'node:lts-buster-slim'
-        //         }
-        //     }
-        //     steps{
-        //         sh 'npm test'
-        //     }
-        // }
+        }
+        stage('Test') {
+            agent{
+                docker {
+                    image 'node:lts-buster-slim'
+                }
+            }
+            steps{
+                sh 'echo "Test Skipped"'
+            }
+        }
         stage('Build Docker Images') {
             agent{
                 docker {
